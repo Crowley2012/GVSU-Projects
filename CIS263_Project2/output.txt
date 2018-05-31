@@ -1,0 +1,61 @@
+
+RomeoAndJuliet(1).txt - Lines : 3290
+Red Black Tree Time: 0 ms
+Binary Heap Time: 10 ms
+Binomial Queue Time: 10 ms
+Leftist Heap Time: 0 ms
+Vector Time: 10 ms
+
+RomeoAndJuliet(10).txt - Lines : 32900
+Red Black Tree Time: 60 ms
+Binary Heap Time: 30 ms
+Binomial Queue Time: 40 ms
+Leftist Heap Time: 30 ms
+Vector Time: 30 ms
+
+RomeoAndJuliet(100).txt - Lines : 329000
+Red Black Tree Time: 410 ms
+Binary Heap Time: 270 ms
+Binomial Queue Time: 370 ms
+Leftist Heap Time: 300 ms
+Vector Time: 250 ms
+
+Red Black Tree Search
+Term Located: the tragedy of romeo and juliet
+0 ms
+Term Located: rom. tush, thou art deceiv'd.
+0 ms
+Term Located: the end
+0 ms
+
+Binary Heap Search
+Term Located: the tragedy of romeo and juliet
+520 ms
+Term Located: rom. tush, thou art deceiv'd.
+460 ms
+Term Located: the end
+510 ms
+
+Binomial Queue Search
+Term Located: the tragedy of romeo and juliet
+780 ms
+Term Located: rom. tush, thou art deceiv'd.
+720 ms
+Term Located: the end
+820 ms
+
+Leftist Heap Search
+Term Located: the tragedy of romeo and juliet
+520 ms
+Term Located: rom. tush, thou art deceiv'd.
+470 ms
+Term Located: the end
+520 ms
+
+Vector Search
+Term Located: the tragedy of romeo and juliet
+40 ms
+Term Located: rom. tush, thou art deceiv'd.
+10 ms
+Term Located: the end
+0 ms
