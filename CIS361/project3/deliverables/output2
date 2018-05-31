@@ -1,0 +1,17 @@
+Script started on Thu 21 Apr 2016 12:08:22 AM EDT
+]0;sean@Sean-Desktop: ~/Documents/git_repos/cis361/project3sean@Sean-Desktop:~/Documents/git_repos/cis361/project3$ cd part2/
+]0;sean@Sean-Desktop: ~/Documents/git_repos/cis361/project3/part2sean@Sean-Desktop:~/Documents/git_repos/cis361/project3/part2$ ./shiftLines.sh sample.txt | ./filterNoiseWords..sh noise.txt | cre[K[K[K./createReport.sh out
+Pipes and Filter
+Filter Pipes and
+Java Swin
+Swin Java
+Software Requirements Analysi
+Requirements Analysi Software
+Analysi Software Requirements
+
+Number of input file lines : 8
+Number of output file lines : 7
+]0;sean@Sean-Desktop: ~/Documents/git_repos/cis361/project3/part2sean@Sean-Desktop:~/Documents/git_repos/cis361/project3/part2$ exit
+exit
+
+Script done on Thu 21 Apr 2016 12:10:23 AM EDT

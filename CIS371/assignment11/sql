@@ -1,0 +1,2 @@
+mysql -h cis.gvsu.edu -u crowleys -p
+use crowleys;

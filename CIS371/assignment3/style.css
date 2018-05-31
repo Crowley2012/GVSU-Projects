@@ -1,0 +1,76 @@
+/*
+	Sean Crowley
+	CS 371
+	Assignment 3
+*/
+
+body{
+	background-color: #006666;
+	font-family: "Times New Roman";
+    font-size: medium;
+	color: black;
+}
+
+.pic img{
+    border: 3px solid black;
+	float: right;
+}
+
+#para1{
+	float: left;
+	width:33%;
+	padding: 20px;
+}
+
+#info{
+	float: left;
+	width:33%;
+	padding: 20px;
+}
+
+.cell4 table{
+    border-style: solid;
+    border-color: black;
+}
+
+.table p{
+    font-size: small;
+}
+
+ul{
+	color: blue;
+}
+
+.best p{
+    font-style: italic;
+}
+
+a:link{
+	color:red;
+}
+
+a:visited{
+	color:green;
+}
+
+.table table{
+	margin: 2px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cell4 table{
+	margin: 20px;
+}
+
+.odd{
+	background-color: gray;
+}
+
+.links{
+	font-family: sans-serif;
+}
+
+.cell2 img{
+	padding: 5px;
+}

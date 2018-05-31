@@ -1,0 +1,111 @@
+sean@Sean-Desktop:~/Documents/git_repos/cis361/project3$ script output
+Script started, file is output
+sean@Sean-Desktop:~/Documents/git_repos/cis361/project3$ cd part1
+sean@Sean-Desktop:~/Documents/git_repos/cis361/project3/part1$ ./junk.sh --help
+
+Syntax: junk [options] targetFileList
+
+–l : option lists the current contents of the .junk directory
+–n : option shows the number of files in the .junk directory and the amount of memory space they consume
+--help : option displays a brief description about this script as well as each of the options
+
+sean@Sean-Desktop:~/Documents/git_repos/cis361/project3/part1$ ./junk.sh targetFileList 
+Error : test2.txt does not exist
+Error : targetFileList contains directories
+sean@Sean-Desktop:~/Documents/git_repos/cis361/project3/part1$ ./junk.sh targetFileList 
+Error : test1.txt does not exist
+Error : test2.txt does not exist
+sean@Sean-Desktop:~/Documents/git_repos/cis361/project3/part1$ ./junk.sh targetFileList 
+sean@Sean-Desktop:~/Documents/git_repos/cis361/project3/part1$ ./junk.sh targetFileList
+sean@Sean-Desktop:~/Documents/git_repos/cis361/project3/part1$ ./junk.sh -n
+
+0 /home/sean/.junk/test1.txt
+0 /home/sean/.junk/test2.txt
+0 total
+
+sean@Sean-Desktop:~/Documents/git_repos/cis361/project3/part1$ ./junk.sh -l
+
+Contents : 
+test1.txt test2.txt
+
+sean@Sean-Desktop:~/Documents/git_repos/cis361/project3/part1$ ./junk.sh -n
+
+ 24 /home/sean/.junk/test1.txt
+771 /home/sean/.junk/test2.txt
+795 total
+
+sean@Sean-Desktop:~/Documents/git_repos/cis361/project3/part1$ ./junk.sh -n
+
+ 24 /home/sean/.junk/test1.txt
+771 /home/sean/.junk/test2.txt
+795 total
+
+sean@Sean-Desktop:~/Documents/git_repos/cis361/project3/part1$ exit
+exit
+Script done, file is output
+sean@Sean-Desktop:~/Documents/git_repos/cis361/project3$ script output2
+Script started, file is output2
+sean@Sean-Desktop:~/Documents/git_repos/cis361/project3$ cd part2/
+sean@Sean-Desktop:~/Documents/git_repos/cis361/project3/part2$ ./shiftLines.sh sample.txt | ./filterNoiseWords.sh noise.txt | ./createReport.sh out
+Pipes and Filter
+Filter Pipes and
+Java Swin
+Swin Java
+Software Requirements Analysi
+Requirements Analysi Software
+Analysi Software Requirements
+
+Number of input file lines : 8
+Number of output file lines : 7
+sean@Sean-Desktop:~/Documents/git_repos/cis361/project3/part2$ exit
+exit
+Script done, file is output2
+sean@Sean-Desktop:~/Documents/git_repos/cis361/project3$ script output3
+Script started, file is output3
+sean@Sean-Desktop:~/Documents/git_repos/cis361/project3$ cd part3/
+sean@Sean-Desktop:~/Documents/git_repos/cis361/project3/part3$ ./unzip.sh cis361p4.zip 
+Archive:  cis361p4.zip
+  inflating: cis361p4/Project 4_edwardsj_attempt_2013-03-08-10-16-08_cipher.c  
+  inflating: cis361p4/Project 4_edwardsj_attempt_2013-03-08-10-16-08_LetFreq.txt  
+  inflating: cis361p4/Project 4_edwardsj_attempt_2013-03-08-10-16-08_makefile  
+  inflating: cis361p4/Project 4_edwardsj_attempt_2013-03-08-10-16-08.txt  
+  inflating: cis361p4/Project 4_harrisr_attempt_2013-03-02-15-56-34_cipher.c  
+  inflating: cis361p4/Project 4_harrisr_attempt_2013-03-02-15-56-34_LetFreq.txt  
+  inflating: cis361p4/Project 4_harrisr_attempt_2013-03-02-15-56-34_makefile  
+  inflating: cis361p4/Project 4_harrisr_attempt_2013-03-02-15-56-34.txt  
+  inflating: cis361p4/Project 4_smitht_attempt_2013-03-03-16-18-29_cipher.c  
+  inflating: cis361p4/Project 4_smitht_attempt_2013-03-03-16-18-29_LetFreq.txt  
+  inflating: cis361p4/Project 4_smitht_attempt_2013-03-03-16-18-29_makefile  
+  inflating: cis361p4/Project 4_smitht_attempt_2013-03-03-16-18-29.txt  
+edwardsj
+make: Entering directory '/home/sean/Documents/git_repos/cis361/project3/part3/cis361p4/edwardsj'
+make: ../../makefile: No such file or directory
+make: *** No rule to make target '../../makefile'.  Stop.
+make: Leaving directory '/home/sean/Documents/git_repos/cis361/project3/part3/cis361p4/edwardsj'
+make: Entering directory '/home/sean/Documents/git_repos/cis361/project3/part3/cis361p4/edwardsj'
+make: ../../makefile: No such file or directory
+make: *** No rule to make target '../../makefile'.  Stop.
+make: Leaving directory '/home/sean/Documents/git_repos/cis361/project3/part3/cis361p4/edwardsj'
+harrisr
+make: Entering directory '/home/sean/Documents/git_repos/cis361/project3/part3/cis361p4/harrisr'
+make: ../../makefile: No such file or directory
+make: *** No rule to make target '../../makefile'.  Stop.
+make: Leaving directory '/home/sean/Documents/git_repos/cis361/project3/part3/cis361p4/harrisr'
+make: Entering directory '/home/sean/Documents/git_repos/cis361/project3/part3/cis361p4/harrisr'
+make: ../../makefile: No such file or directory
+make: *** No rule to make target '../../makefile'.  Stop.
+make: Leaving directory '/home/sean/Documents/git_repos/cis361/project3/part3/cis361p4/harrisr'
+smitht
+make: Entering directory '/home/sean/Documents/git_repos/cis361/project3/part3/cis361p4/smitht'
+make: ../../makefile: No such file or directory
+make: *** No rule to make target '../../makefile'.  Stop.
+make: Leaving directory '/home/sean/Documents/git_repos/cis361/project3/part3/cis361p4/smitht'
+make: Entering directory '/home/sean/Documents/git_repos/cis361/project3/part3/cis361p4/smitht'
+make: ../../makefile: No such file or directory
+make: *** No rule to make target '../../makefile'.  Stop.
+make: Leaving directory '/home/sean/Documents/git_repos/cis361/project3/part3/cis361p4/smitht'
+sean@Sean-Desktop:~/Documents/git_repos/cis361/project3/part3$ exit
+exit
+Script done, file is output3
+sean@Sean-Desktop:~/Documents/git_repos/cis361/project3$ 
+

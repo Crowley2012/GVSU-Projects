@@ -1,0 +1,88 @@
+/*
+	Sean Crowley
+	CS 371
+	In Class 2
+*/
+
+#CIS p{
+	color: blue;
+}
+
+#CIS h3{
+	background-color: gray;
+	color: black;
+    text-align: center;
+}
+
+#CIS .col_1 {
+	float:left; 
+	width:32%;
+}
+
+#CIS .col_1 table{
+    border-style: solid;
+    border-color: gray;
+}
+
+#CIS .col_1 th{
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+}
+
+#CIS .col_1 td{
+    border-style: solid;
+    border-color: blue;
+    border-width: 1px;
+	color: blue;
+}
+
+#CIS .col_2 {
+	float:left; 
+	width:32%;
+}
+
+#CIS .col_3 {
+	float:left; 
+	width:32%;
+}
+
+#courses li{
+	font-family: Courier
+}
+
+#courses .col_1{
+	float:left; 
+	width:32%;
+}
+
+#courses .col_2{
+	float:left; 
+	width:32%;
+}
+
+#courses .col_3 {
+	float:left; 
+	width:32%;
+}
+
+#courses h3 {
+	color: black;
+    background-color: green;
+    text-align: center;
+}
+
+.col_1, .col_2, .col_3{
+	margin: 10px;
+}
+
+#courses{
+	text-align: center;
+    text-align: left;
+}
+
+.imp{
+	color: red;
+}
+
+

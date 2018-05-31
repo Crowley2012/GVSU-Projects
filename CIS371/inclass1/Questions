@@ -1,0 +1,28 @@
+Sean Crowley
+CIS 371
+In Class 1: Write a basic web client transaction
+_____________________
+
+How can you tell from the response headers that the request for NoSuchFile.html failed?
+
+	The header contains : 404 Not Found
+
+
+What (if anything) was written to the file? Where did this data come from?
+
+	<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+	<html><head>
+	<title>404 Not Found</title>
+	</head><body>
+	<h1>Not Found</h1>
+	<p>The requested URL /~kurmasz/NoSuchFile.html was not found on this server.</p>
+	</body></html>
+
+	This is what is returned in the body when a file does not exist. This tells the browser that there is no such file.
+
+
+Did it work? Why not?
+
+	No, we are using the wrong type of reader/writer. 
+
+

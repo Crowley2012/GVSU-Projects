@@ -1,0 +1,47 @@
+Script started on Thu 21 Apr 2016 12:10:44 AM EDT
+]0;sean@Sean-Desktop: ~/Documents/git_repos/cis361/project3sean@Sean-Desktop:~/Documents/git_repos/cis361/project3$ cd pra[K[Kart3/
+]0;sean@Sean-Desktop: ~/Documents/git_repos/cis361/project3/part3sean@Sean-Desktop:~/Documents/git_repos/cis361/project3/part3$ ./unzip.sh cis361p4.zip 
+Archive:  cis361p4.zip
+  inflating: cis361p4/Project 4_edwardsj_attempt_2013-03-08-10-16-08_cipher.c  
+  inflating: cis361p4/Project 4_edwardsj_attempt_2013-03-08-10-16-08_LetFreq.txt  
+  inflating: cis361p4/Project 4_edwardsj_attempt_2013-03-08-10-16-08_makefile  
+  inflating: cis361p4/Project 4_edwardsj_attempt_2013-03-08-10-16-08.txt  
+  inflating: cis361p4/Project 4_harrisr_attempt_2013-03-02-15-56-34_cipher.c  
+  inflating: cis361p4/Project 4_harrisr_attempt_2013-03-02-15-56-34_LetFreq.txt  
+  inflating: cis361p4/Project 4_harrisr_attempt_2013-03-02-15-56-34_makefile  
+  inflating: cis361p4/Project 4_harrisr_attempt_2013-03-02-15-56-34.txt  
+  inflating: cis361p4/Project 4_smitht_attempt_2013-03-03-16-18-29_cipher.c  
+  inflating: cis361p4/Project 4_smitht_attempt_2013-03-03-16-18-29_LetFreq.txt  
+  inflating: cis361p4/Project 4_smitht_attempt_2013-03-03-16-18-29_makefile  
+  inflating: cis361p4/Project 4_smitht_attempt_2013-03-03-16-18-29.txt  
+edwardsj
+make: Entering directory '/home/sean/Documents/git_repos/cis361/project3/part3/cis361p4/edwardsj'
+make: ../../makefile: No such file or directory
+make: *** No rule to make target '../../makefile'.  Stop.
+make: Leaving directory '/home/sean/Documents/git_repos/cis361/project3/part3/cis361p4/edwardsj'
+make: Entering directory '/home/sean/Documents/git_repos/cis361/project3/part3/cis361p4/edwardsj'
+make: ../../makefile: No such file or directory
+make: *** No rule to make target '../../makefile'.  Stop.
+make: Leaving directory '/home/sean/Documents/git_repos/cis361/project3/part3/cis361p4/edwardsj'
+harrisr
+make: Entering directory '/home/sean/Documents/git_repos/cis361/project3/part3/cis361p4/harrisr'
+make: ../../makefile: No such file or directory
+make: *** No rule to make target '../../makefile'.  Stop.
+make: Leaving directory '/home/sean/Documents/git_repos/cis361/project3/part3/cis361p4/harrisr'
+make: Entering directory '/home/sean/Documents/git_repos/cis361/project3/part3/cis361p4/harrisr'
+make: ../../makefile: No such file or directory
+make: *** No rule to make target '../../makefile'.  Stop.
+make: Leaving directory '/home/sean/Documents/git_repos/cis361/project3/part3/cis361p4/harrisr'
+smitht
+make: Entering directory '/home/sean/Documents/git_repos/cis361/project3/part3/cis361p4/smitht'
+make: ../../makefile: No such file or directory
+make: *** No rule to make target '../../makefile'.  Stop.
+make: Leaving directory '/home/sean/Documents/git_repos/cis361/project3/part3/cis361p4/smitht'
+make: Entering directory '/home/sean/Documents/git_repos/cis361/project3/part3/cis361p4/smitht'
+make: ../../makefile: No such file or directory
+make: *** No rule to make target '../../makefile'.  Stop.
+make: Leaving directory '/home/sean/Documents/git_repos/cis361/project3/part3/cis361p4/smitht'
+]0;sean@Sean-Desktop: ~/Documents/git_repos/cis361/project3/part3sean@Sean-Desktop:~/Documents/git_repos/cis361/project3/part3$ exit
+exit
+
+Script done on Thu 21 Apr 2016 12:11:15 AM EDT

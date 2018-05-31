@@ -1,0 +1,4 @@
+http://localhost:8080/cat-green
+http://localhost:8080/cat%test.txt-green
+http://localhost:8080/cat%test2-blue
+http://localhost:8080/script-green

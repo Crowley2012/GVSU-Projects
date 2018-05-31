@@ -1,0 +1,7 @@
+#!/bin/bash
+
+javac Server.java
+
+clear
+
+java Server

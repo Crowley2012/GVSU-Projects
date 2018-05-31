@@ -1,0 +1,28 @@
+5/10
+---------------------------------------------
+
+HTML
+	Can identify multiple items with class
+	Can identify single items with id
+	
+5/12
+----------------------------------------------
+
+DRY
+	Dont repeat yourself
+	
+CWD
+	Current working directory
+	directory of the file looking
+	
+~
+	replaced with /home/crowleys/public_html/
+
+Cookies 5/24
+--------------------------------------------
+
+http
+	stateless
+	exept cookies from webserver
+
+

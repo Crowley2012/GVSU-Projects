@@ -1,0 +1,8 @@
+#!/bin/bash
+
+javac Assignment.java
+
+java Assignment www.cis.gvsu.edu/~kurmasz/Humor/stupid.html
+#java Assignment www.cis.gvsu.edu/~kurmasz/Distiller/HowTo.txt
+#java Assignment www.cis.gvsu.edu/~kurmasz/NoSuchFile.html
+#java Assignment www.cis.gvsu.edu/~kurmasz/buzz1.jpg

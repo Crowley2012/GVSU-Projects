@@ -1,0 +1,45 @@
+Script started on Thu 21 Apr 2016 12:00:24 AM EDT
+]0;sean@Sean-Desktop: ~/Documents/git_repos/cis361/project3sean@Sean-Desktop:~/Documents/git_repos/cis361/project3$ cd part [K1
+]0;sean@Sean-Desktop: ~/Documents/git_repos/cis361/project3/part1sean@Sean-Desktop:~/Documents/git_repos/cis361/project3/part1$ ./junk.sh --help
+
+Syntax: junk [options] targetFileList
+
+–l : option lists the current contents of the .junk directory
+–n : option shows the number of files in the .junk directory and the amount of memory space they consume
+--help : option displays a brief description about this script as well as each of the options
+
+]0;sean@Sean-Desktop: ~/Documents/git_repos/cis361/project3/part1sean@Sean-Desktop:~/Documents/git_repos/cis361/project3/part1$ ./u[Kjunk.sh targetFileList 
+Error : test2.txt does not exist
+Error : targetFileList contains directories
+]0;sean@Sean-Desktop: ~/Documents/git_repos/cis361/project3/part1sean@Sean-Desktop:~/Documents/git_repos/cis361/project3/part1$ ./junk.sh targetFileList 
+Error : test1.txt does not exist
+Error : test2.txt does not exist
+]0;sean@Sean-Desktop: ~/Documents/git_repos/cis361/project3/part1sean@Sean-Desktop:~/Documents/git_repos/cis361/project3/part1$ ./junk.sh targetFileList 
+]0;sean@Sean-Desktop: ~/Documents/git_repos/cis361/project3/part1sean@Sean-Desktop:~/Documents/git_repos/cis361/project3/part1$ ./junk.sh targetFileList
+]0;sean@Sean-Desktop: ~/Documents/git_repos/cis361/project3/part1sean@Sean-Desktop:~/Documents/git_repos/cis361/project3/part1$ ./junk.sh -n
+
+0 /home/sean/.junk/test1.txt
+0 /home/sean/.junk/test2.txt
+0 total
+
+]0;sean@Sean-Desktop: ~/Documents/git_repos/cis361/project3/part1sean@Sean-Desktop:~/Documents/git_repos/cis361/project3/part1$ ./jiu[K[Kunk.sh -l
+
+Contents : 
+test1.txt test2.txt
+
+]0;sean@Sean-Desktop: ~/Documents/git_repos/cis361/project3/part1sean@Sean-Desktop:~/Documents/git_repos/cis361/project3/part1$ ./junk,s\[K[K[K.sh -n
+
+ 24 /home/sean/.junk/test1.txt
+771 /home/sean/.junk/test2.txt
+795 total
+
+]0;sean@Sean-Desktop: ~/Documents/git_repos/cis361/project3/part1sean@Sean-Desktop:~/Documents/git_repos/cis361/project3/part1$ ./junk.sh -n
+
+ 24 /home/sean/.junk/test1.txt
+771 /home/sean/.junk/test2.txt
+795 total
+
+]0;sean@Sean-Desktop: ~/Documents/git_repos/cis361/project3/part1sean@Sean-Desktop:~/Documents/git_repos/cis361/project3/part1$ exit
+exit
+
+Script done on Thu 21 Apr 2016 12:07:21 AM EDT
