@@ -1,0 +1,108 @@
+Script started on Thu 14 Apr 2016 10:17:48 AM EDT
+[?1034h[eos19:~/Documents/git_repos/cis452/lab12]$ gcc sample1.c 
+[eos19:~/Documents/git_repos/cis452/lab12]$ ./script1.sh [K[K[K[K[K[K[K[K[K[K[K[K[K./script1.sh 
+Enter a file name : dir
+  File: ‘dir’
+  Size: 4096      	Blocks: 8          IO Block: 1048576 directory
+Device: 26h/38d	Inode: 22745847    Links: 2
+Access: (0711/drwx--x--x)  Uid: ( 7494/crowleys)   Gid: (  500/   users)
+Access: 2016-04-11 20:11:28.125146643 -0400
+Modify: 2016-04-07 10:54:57.145237853 -0400
+Change: 2016-04-07 10:54:57.145237853 -0400
+ Birth: -
+
+value is: 16841
+file is a directory
+[eos19:~/Documents/git_repos/cis452/lab12]$ gcc sample1.c [K[K[K[K[K[K[K[K[K[K[K[K[K[K./script.[K1.sh 
+Enter a file name : a.out
+  File: ‘a.out’
+  Size: 8772      	Blocks: 24         IO Block: 1048576 regular file
+Device: 26h/38d	Inode: 193668618   Links: 1
+Access: (0755/-rwxr-xr-x)  Uid: ( 7494/crowleys)   Gid: (  500/   users)
+Access: 2016-04-14 10:18:09.443598694 -0400
+Modify: 2016-04-14 10:18:09.451598724 -0400
+Change: 2016-04-14 10:18:09.451598724 -0400
+ Birth: -
+
+value is: 33261
+[eos19:~/Documents/git_repos/cis452/lab12]$ gcc sample2.c 
+[eos19:~/Documents/git_repos/cis452/lab12]$ ./a[Kscript.sh[K[K[K2.sh 
+total 184
+-rwxr-xr-x 1 crowleys users   8883 Apr 14 10:18 a.out
+drwx--x--x 2 crowleys users   4096 Apr  7 10:54 dir
+-rw------- 1 crowleys users 146054 Apr 14 10:11 Lab12.pdf
+-rw-r--r-- 1 crowleys users      0 Apr 14 10:17 output.log
+-rw-r--r-- 1 crowleys users   2500 Apr 14 10:05 prog.c
+-rw-r--r-- 1 crowleys users    498 Apr  7 11:10 sample1.c
+-rw-r--r-- 1 crowleys users    432 Apr  7 11:44 sample2.c
+-rwxr-xr-x 1 crowleys users     85 Apr  7 11:22 script1.sh
+-rwxr-xr-x 1 crowleys users     32 Apr  7 11:45 script2.sh
+-rwxr-xr-x 1 crowleys users    338 Apr 14 10:07 test.sh
+
+498 bytes 	sample1.c
+338 bytes 	test.sh
+432 bytes 	sample2.c
+85 bytes 	script1.sh
+146054 bytes 	Lab12.pdf
+8883 bytes 	a.out
+2500 bytes 	prog.c
+4096 bytes 	..
+4096 bytes 	.
+32 bytes 	script2.sh
+4096 bytes 	dir
+0 bytes 	output.log
+
+[eos19:~/Documents/git_repos/cis452/lab12]$ gcc prog.c 
+[eos19:~/Documents/git_repos/cis452/lab12]$ ./a[Ktest.sh 
+
+ls
+-------------------------
+total 60
+drwxrwxr-x 2 crowleys users 4096 Apr  7 10:08 lab 1
+drwxr-xr-x 2 crowleys users 4096 Mar 28 22:37 lab 10
+drwxr-xr-x 3 crowleys users 4096 Apr  1 20:59 lab 11
+drwxr-xr-x 3 crowleys users 4096 Apr 14 10:19 lab12
+drwxrwxr-x 2 crowleys users 4096 Feb 18 18:51 lab 2
+drwxrwxr-x 2 crowleys users 4096 Feb 18 18:51 lab 3
+drwxrwxr-x 2 crowleys users 4096 Feb 18 18:51 lab 4
+drwxrwxr-x 2 crowleys users 4096 Feb 18 18:51 lab 5
+drwxrwxr-x 2 crowleys users 4096 Feb 25 10:55 lab 6
+drwx--x--x 2 crowleys users 4096 Mar 14 19:51 lab 7
+drwxr-xr-x 2 crowleys users 4096 Mar 28 19:20 lab 9
+drwx--x--x 2 crowleys users 4096 Apr 14 10:05 notes
+drwxrwxr-x 2 crowleys users 4096 Feb 18 18:51 project 1
+drwxrwxr-x 2 crowleys users 4096 Feb 18 18:51 project 2
+-rw-rw-r-- 1 crowleys users    8 Feb 18 18:51 README.md
+
+195953464 lab 1   195953471 lab 2  195953512 lab 6  195953495 project 1
+196096710 lab 10  195953477 lab 3  196097396 lab 7  195953498 project 2
+195953666 lab 11  195953482 lab 4  167715166 lab 9  195953463 README.md
+193668614 lab12   195953487 lab 5  197333452 notes
+
+a.out
+-------------------------
+drwxrwxr-x 8 crowleys users 4096 Apr 14 10:19 .git
+drwx--x--x 2 crowleys users 4096 Apr 14 10:19 lab 7
+drwxr-xr-x 2 crowleys users 4096 Apr 14 10:19 lab 9
+-rw-rw-r-- 1 crowleys users 8 Apr 14 10:19 README.md
+drwxrwxr-x 2 crowleys users 4096 Apr 14 10:19 project 1
+drwxrwxr-x 2 crowleys users 4096 Apr 14 10:19 lab 4
+drwxr-xr-x 2 crowleys users 4096 Apr 14 10:19 lab 10
+drwxrwxr-x 2 crowleys users 4096 Apr 14 10:19 lab 5
+drwxr-xr-x 3 crowleys users 4096 Apr 14 10:19 lab12
+drwxrwxr-x 2 crowleys users 4096 Apr 14 10:19 project 2
+drwx--x--x 5 crowleys users 4096 Apr 14 10:19 ..
+drwxrwxr-x 17 crowleys users 4096 Apr 14 10:19 .
+drwxrwxr-x 2 crowleys users 4096 Apr 14 10:19 lab 6
+drwxrwxr-x 2 crowleys users 4096 Apr 14 10:19 lab 2
+drwx--x--x 2 crowleys users 4096 Apr 14 10:19 notes
+drwxr-xr-x 3 crowleys users 4096 Apr 14 10:19 lab 11
+drwxrwxr-x 2 crowleys users 4096 Apr 14 10:19 lab 1
+drwxrwxr-x 2 crowleys users 4096 Apr 14 10:19 lab 3
+
+195953338 .git 196097396 lab 7 167715166 lab 9 195953463 README.md 195953495 project 1 195953482 lab 4 196096710 lab 10 195953487 lab 5 193668614 lab12 195953498 project 2 188226765 .. 195953337 . 195953512 lab 6 195953471 lab 2 197333452 notes 195953666 lab 11 195953464 lab 1 195953477 lab 3 
+
+[eos19:~/Documents/git_repos/cis452/lab12]$ exit
+exit
+
+Script done on Thu 14 Apr 2016 10:19:31 AM EDT

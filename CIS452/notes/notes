@@ -1,0 +1,1449 @@
+Chapter 1 : Hardware
+
+OS
+   Goal: 
+	Convience for user -> Control program
+	Efficient use of resources -> Resource allocator
+	OS = Interrupt-driven control program
+
+System model
+	How all the hardware is connected
+	CPU - Disk controller - USB controller - Graphics adapter
+	All connected to memory
+	Connection is called system BUS
+	DMA : Direct memory access
+	CPU tells the controllers to do something and report back when its done
+
+Interrupts
+	Control transfer
+	Example would be calling a function
+	Types : Hardware (parity) Software (overflow) Trap/Exception (fault)
+	Service : 1. Recognition
+		  2. Control Transfer
+		  3. Return (State)
+
+Interrupt service vector
+	stored in low memory
+	int handler disk
+	int handler nic
+
+Storage Hierarchy
+	registers - cache - main memory - electronic disk - magnetic disk - optical disk - magnetic tapes
+	Higher Faster
+	Lower Larger/Cheaper
+
+Protection
+	Time (CPU cycles) : Timers
+		OS says that a program has a specified amount of time to run, then temporaily booted off
+	Space (memory) : "Fences"
+		Not allowed to access memory that is not in your yard
+	Privileged Instructions : Dual-mode operation
+		System Call
+
+Kernel 
+	The portion of the OS that resides in RAM
+	Protected never able to edit that memory
+	(user process) executing - calls system call - (kernel) trap mode bit = 0 execute system call return mode bit = 1
+
+Chapter 2 : Software
+
+Services
+	Modular/Layered
+	Kernel is modular and services can be replaced with others
+
+Chapter 3 : Process
+
+Process
+	Definition : A program in execution 
+	State : Program counter / registers, Own memory, Files, Devices
+	Process State : Fig 3.02 state diagram
+		Ready : Runnable process
+		Running : cpu chose this program to run next, scheduler dispatch. Can be interrupted and return to ready state (Timer interrupt)
+		Waiting : Blocked, I/O or event wait. Goes back to ready state
+
+Process control block (PCB)
+	Process representation
+	3 kinds of information
+		- ID
+		- State
+		- Control
+	PCB Example (Unix)
+		PID : Process ID, Parent PID
+		UID : User ID (Max number of processes for a user)
+		---------------------------
+		State : Ready, Blocked, ...
+			PC / SP / Regs
+		Memory Info : Pointers to page tables
+		---------------------------
+		Scheduling Info : Priority, cpu usage
+		Accounting Info : Timers
+		Events / Signals
+
+Process Table
+	Contains all the PCBs
+	Stored in Kernel memory
+	Pointers to Heap, Stack, Code, Data	
+
+User Process
+	Code (Text), Fixed size
+	Data, Fixed size
+	Heap space, grows up, dynamic data
+	Stack, grows down, dynamic data
+
+Process Operations
+	Create/Spawn a new process
+		System call fork() : creates exact copy of parent in new address space
+			Every process has parent
+			fork() returns -1 on error
+					0 to child
+					Child PID to parent
+	Execute : Program Overlay
+		System call exec() : Replace text/data area with new program and execute
+	Block
+		System call wait() : waits for child to terminate
+	Termination : Deallocation of resources
+		System call exit() : Terminates, Returns to wait() in parent
+
+1/22
+-----------------------------------	
+Orphan
+	return to init
+	no parent
+
+Zombie
+	wont die
+
+Daemon
+	Process that runs all the time, no completion
+
+While(t){
+	display.prompt();
+	read.command(cmd, &params);
+	pid = fork();
+	if(pid<0)
+		error.routine()			//Fork failes
+	elseif(pid)				//Parent
+		waitpid(-1, &status, 0);	//Shell blocks
+	else
+		execve(cmd, params,0);		//Child executes new program
+}
+
+
+1/25 - Chapter 3
+-----------------------------------
+Process Scheduling
+	Goal : Efficiency, high utilization of resources
+	Run process 2 during the i/o of process 1
+	
+	Gant chart
+	time -->
+	 cpu      cpu        cpu      cpu
+	|---l----l----l----|----l----l----l----|
+	0   1    2    3    4    5    6    7    8
+	     i/o        i/o       i/o       i/o
+	p1		   p2
+
+	 cpu      cpu
+	|---l----l----l----l
+	1   2    3    4    5
+	     i/o       i/o
+	p2
+
+Contact Switch
+	Exchange environment
+	"Bookmark"
+	Process Scheduling
+	System call : volunatarily
+	Trap : Executing instruction
+	Interrupt : External Event
+	Schedulers (Long, Medium, Short)
+	Dont really see long/medium
+	Short is also known as cpu scheduler
+	Swapping is entire program, paging is only part of the program
+	
+Interprocess Communication (IPC)
+	Shared memory / message-passing
+	Primitives : Send / Recv
+	Addressing
+		Direct (named) --> send(P2, msg)
+		Indirect (service) --> send(service, msg)
+		Types : 1:1, 1:many (Broadcast)
+	Naming
+		Symmetric (Both named)	P1 : Send(p2, msg)
+		Asymmetric (Only one named) p1 : recv(*, &msg)
+	Timing
+		Synchronous (Blocking) Waits until p2 calls recv()
+		ASynchronous (Buffering) More effiecient allows p1 to continue after send()
+	
+
+	(SHARED/MESSAGE PASSING)
+	p1	p2
+	|----|---| Bus
+	     X
+	Shared Memory, both have access to variable
+
+	p1	p2
+	|[]------| Bus
+	 Send message
+	Message-passing, send to other program
+
+Comunication Mechanisms
+
+1. Shared Memory
+	Mechanism : Uses Global Address Space, Programmer-Managed
+	Property : Kernel Resource
+	System Calls :  shmget() : Creates shared memory segment
+			shmat() : Attached shared memory region to process' address space / Anonymous
+			shmdt() : Detaches process from shared memory segment
+			shmctl() : Controlling shared memory resource / Destroy - Not until everything is detached
+			
+1/27 - Chapter 3
+----------------------------------------
+2. Signals (ANS1) (Newer version POSIX)
+	Definition : Software Interupt
+	Mechanism : Process specify / register sgnal handling function
+		    What to do when this signal is received
+	System Call : signal()
+	Predefined signals - From OS (^C), (/o), Child Terminates
+	SIGINT runs before termination, allows for cleanup
+	SIGCHLD when child exits the OS sends SIGCHLD to the parent and wakes the parent
+	Sending : kill(), kill(pid, SIGINT)
+	User-Defined : SIGUSR1, SIGUSR2 (SIGCHLD)
+
+3. Pipes
+	Definition : Unidirectional, Synchronized communication channel
+	Mechanism : OS Managed, 4KB Ram Buffer
+		    Looks and acts like a file (Pipe descriptor)
+		    Read and write to this file like any other file
+		    Will do blocking if needed, wont lose memory, waits until memory is read out for space
+	Streamed : Ordered communication, reliable, no error checking
+	
+	Parent
+	--------
+	int fd[2]	W ----> R	fd 0 | pipe-r
+	pipe(fd)	()=====|	   1 | pipe-w (W)
+	fork()
+
+	Child		
+	--------
+	------>		W ----> R	fd 0 | pipe-r (R)
+			()=====|	   1 | pipe-w
+
+	To make it bidirectional, open another pipe going the other direction
+
+4. Sockets
+	Definition : Communication Endpoint
+		TCP/IP
+		UDP
+
+1/29 - Chapter 4
+-----------------------------------------------
+Threads
+	multi-core -> multi-threaded problems
+	
+
+2/1 - Chapter 4
+-----------------------------------------------
+Threads
+	Process : Unit of resource ownership(M, Files, Pipes ...)
+	Thread : Unit of work(Execution path through process)
+	Code, Data, Files are all shared with threads
+	Registers, stack are seperate between threads
+	
+	Thread Model
+		Functional 
+		Data-Parallel
+		
+	Process		Thread
+	------------------------
+	Adrr space	PC
+	Globals		Registers
+	Children	Stack
+	Files		State
+	Signals		Children
+	Timers
+
+Benefits
+	Overlap computation with I/O
+	Foreground/Background Processing(Video Game)
+	Asynchronous Processing(Periodic Backup)
+	Performance(Speed)
+	Program Structure
+	
+2/3 - Threads
+-------------------------------------------------------------
+Implementation
+	user-level
+	kernel-level
+	hybrid (JVM)
+
+	User
+		Process
+		_____________
+		|t1 t2 t3    |
+		|------------|
+		|Runtime LIB |
+		|------------|
+		|Kernel	     |
+		|------------|
+		
+		Many to 1
+		Kernel sees onethread
+
+		Advantages
+		------------
+		Can run on any OS	
+		Fast thread operations
+				
+		Disadvantages
+		------------
+		Syscall blocks entire process
+
+	Kernel
+		Process
+		|------------|
+		|t1 t2 t3    |
+		|------------|
+		|Runtime LIB |
+		|------------|
+		|Kernel      |
+		|------------|
+		
+		1 - 1
+		Kernel sees each thread
+
+		Advantages
+		------------
+		Blocking syscall only blocks the one thread
+		Premptive scheduling
+		
+		Disadvantages
+		------------
+		Can not be run on any OS
+		Thread operations are slower because they break down to syscalls
+		
+	Hybrid
+		Process
+		|------------|
+		|t1 t2 t3    |
+		|------------|
+		|JVM         |
+		|------------|
+		|Kernel      |
+		|------------|
+
+		many-to-many
+		can map 2 threads to 1 kernel thread
+		
+Threads
+	Creation / Execution
+		State
+	Wait / Exit
+		
+2/8 - Coordination / Synchronization
+---------------------------------------------
+Problem : Producer -> Consumer
+Properties : Concurrent
+	     Speed?
+	     Bounded space
+
+Consumer and producer code
+	circular array
+	problem with code is that when incrementing couter there is a context switch
+	counter value not stored and picks up where it left off
+	counting gets screwed up
+	issue if from using a single core context switching
+	critical section problem
+	they access a shared variable
+	
+Critical section problem
+   1. Mutual exclusion : No collision
+	Example : P0 + P1 in critical section simultaneously
+
+   2. Progress
+	I. A process is not stuck
+	   Example : P0 blocked, P1 not in critical section, not interested in critical section
+	II. Not deadlocked
+	   Example : P0 blocked, p1 blocked
+		     (Doing dance in the doorway)
+
+   3. Bounded Wait : No starvation  
+	Example : P0 blocked, P1 goes repeatedly
+		  (P0 could never be run, no bound on P1)
+
+	Synchronization Object
+	Two process (P0 + P1)
+
+	P1 : i = 0	P2 : i = 1
+	     j = 1	     j = 0
+
+2/10
+--------------------------------------------------
+Solution to critical section (CS) problem
+	1. Mutual exclusion : No collision
+	2. Progress : I. Not stuck
+		      II. Not deadlocked
+	3. Bounded wait : No starvation
+
+Two process solution
+	P0 P1
+	Pi : 
+
+2/12
+--------------------------------------------------
+2 - process solution
+petersons is the correct software solution to the critical section problem
+
+
+2/15
+--------------------------------------------------
+n - process solution
+	"bakery solution" algorithim
+		each process receives a number
+		two processes with same number
+			pid is the tie breaker
+		notation
+			max() function
+
+hardware solution to critical section problem
+	test-and-set
+	Idea : test and set (modify) m contents
+	       in one m cycle (atomic)
+
+Mutual exclusion problem
+	bool lock = false (shared)
+	while(test.and.set(&lock))
+		;
+	CS
+	lock = false;
+
+	-------------------------------
+
+	problems
+		1. still has busy wait
+		2. fails bounded waiting
+		3. not a critical section solution
+
+	-------------------------------
+
+	bool testandset(bool *target){
+		bool oldVal
+	
+		odl val = *target;
+		*target = true;
+		return (old Val);
+	}
+
+semaphore
+	os level concept
+	first concurrency mechanism widely used
+	concurrecy for a process
+	semaphore - process	mutex - thread
+	
+	definition : synchronization tool
+		     shared integer accessed only through 2 atomic 
+	
+	wait(s) : while(s<=0)
+			;
+		  s--;
+
+	signal(s) : s++;
+
+
+	sem mutex = 1;
+
+	pi: wait(mutex);
+		cs
+	    signal(mutex);
+
+	MODERN VERSION ON PAPER
+
+	signal synch
+		sem synch = 0
+		prod		cons
+		signal(synch)
+				wait(Synch)
+
+2/17
+------------------------------------------------------
+
+Classical problems
+------------------
+Design Patterns
+	
+1. Bounded buffers
+	prod -> buffer -> consumer
+	mutex : mutual exclusion
+	full, empty : counting semaphores(full and empty buffers)
+
+2. Readers / Writers
+	Allow parallel (concurrent) reading
+	only 1 writer + no readers
+	wrt : mutual exclusion semaphore for writer
+	mutex : ensure only 1 reader enters / exits at a time
+	possible starvation for writer
+
+3. Dining Philosophers
+	Philosophers sitting around a table
+	1 chopstick in between them
+	shared resource problem	
+	
+	sem chopsticks[n] = {1};
+
+	pi :
+	wait(chopstick[i]);
+	wait(chopstick[(i+1)%n];
+		CS
+	signal(chopstick[i]);
+	signal(chopstick[(i+1)%n];
+
+2/19
+------------------------------------------------
+
+Deadlock
+	Occurs because of comeptition with resources
+	Resources : Time(cpu), space(m), physical(drive), logical(lock)
+	Properties : reusable serially
+		     discrete - come in units
+		     Bounded - never an infinite amount of them
+	Usage : Request resource
+		Use it
+		Release 
+	Mechanism : System call
+	Policy : if available -> grant request
+		 else -> block until available
+
+	Deadlock.png
+
+			bank		atm
+	A: saving	wait(a)		wait(b)	
+	B: checking	wait(b)		wait(a)
+			transfer	transfer
+			signal(a)	signal(a)
+			signal(b)	signal(b)
+
+Deadlock characterization 
+	mutual exclusion
+	hold and wait
+	no preemption
+	circular wait
+
+	4 necessary but insufficient conditions
+
+	resource allocation graph
+
+2/22
+--------------------------------------------------
+Deadlocking is when all processes are trying to get a resource
+
+If there is 1 process that is free it can prevent deadlocking because it will free its resource
+
+Cycle dependency is if you can follow the arrows and get back to where you started
+
+Cycle may imply deadlock but not definetly
+If there is a deadlock there will be a cycle
+
+As long as there is a way out it is not deadlocked
+
+Strategies for dealing with deadlock
+
+	1. Ignore the problem : "Ostrich" algorithm
+	2. Deadlock prevention : Deny 1 of the 4 necessary conditions
+		Prevention
+		----------
+		1. Mutual Exclusion -> Pseudo-sharing of a resource
+			Example : Time share the cpu / print spool
+			Problem : Not all resources can be shared
+
+		2. Hold and Wait -> Request all resources at once
+			Example : Atomic request
+			Problem : Low utilization / starvation
+		
+		3. No Preemption -> Pre-empt resource
+			Example : Low priority / blocked
+			Problem : How to preempt file transfer
+		
+		4. Circular Wait -> Use linear order to break cycle
+			Example : Resources ordered / Requested in order (Wont have deadlock.png)
+			
+	3. Deadlock avoidance
+		State space
+		|------------|
+		|safe        |
+		|------------|
+		|unsafe      |
+		|  deadlock  |
+		|------------|
+
+		As long as in the safe space no chance of deadlock
+		unsafe does not mean instant deadlock but if in safe space gurantee for no deadlock
+
+		"Pretend" to grant request (Make a fake request call)
+		Determine safety state
+		If safe -> grant; if not -> block
+		Problem : Low utilization
+
+	4. Detect and Recover
+		Detect : Variation of avoidance
+		Recover : Prempt resources
+			abort process
+
+2/24
+-------------------------------------------------------------
+
+CPU scheduler
+	Process
+		Alternating Computation - I/O
+		Small bursts
+	Goal : Improved Performance
+
+Performance Metrics
+	1. CPU Utilization : % time CPU busy with user process
+	2. Throughput : # jobs complete unit time
+	3. Turnaround Time : Time for process to complete => System avg
+		T = completionTime - ArrivalTime
+	4. Waiting Time : Time process on Ready Q
+		W = TurnaroundTime - CPUBurstTime
+
+2/26
+---------------------------------------------------------------
+
+Non-Preemptive
+	1. First-time first-served (FCFS)
+	   Mechanism : FIFO Queue ordered by arrival time
+		+ Easy to implement
+		+ Fair
+		- "Convoy" effect
+
+	2. Shortest Job First (SJF)
+	   Mechanism : Ready queue ordered by increasing cpu burst length
+		+ Optimal
+		- Impossible to implement
+			1. Comparison
+			2. Heupistic - best guess
+
+	3. Priority
+	   Mechanism : Ready queue ordered by priority
+	   Tiebreaker = PID #
+
+ti measured time of ith burst
+Ti predicted time of ith burst
+T0 = t0 = initial value
+
+0 <= omega <= 1	relative weight of past/present
+
+running average
+	T(n+1) = 1/n n(E)i=1 ti
+
+exponential avg
+	Tn+1 = alpha tn + (1-alpha)Tn
+
+	alpha -> Tn+1 = tn	//last burst
+
+	alpha -> 1/2: 1. t0
+		      2. t0/2 + t1/2
+		      3. t0/4 + t1/4 + t2/2
+
+2/29
+-------------------------------------------------
+
+Preemptive
+	4. Round-Robin (RR)
+	   Preemptive fcfs
+	   Mechanism : Ready Queue is circular Queue
+		       Allocate cpu in time quantity (q = 100ms)
+		       New Process Added in Tail of Queue
+		       ~80% cpu bursts < q // in n-process system
+
+	5. Preempting SJF
+	   Shortest - Remaining Time First (SRTF)
+
+	6. Preemptive Priority
+
+	Figure out finish time  turnaround waittime
+
+	turnaround = finish - arrival
+
+	7. Multi-Level Queue
+	   Mechanism : Partition the ready queue
+	   
+	   -----> System	-----> CPU	Priority  H  ^
+		  Interactive				     |
+		  Batch		                          L  |
+
+	8. Multi-level Feedback Queue
+	   Mechanism : Processes change queues
+	   Can demote a process priority based on its time
+	   Can also promote - prevents startvation
+
+	   -----> q=10ms	------> CPU	Same priority ^^^
+		  q=100ms
+		  q=1sec
+
+
+3/2 Review before Midterm
+------------------------------------------------------------------
+
+6
+2
+20
+14
+17
+
+4
+1
+12
+10
+12
+
+first 4 chapter 30%
+first 2 chapters
+	t/f
+	processes and threads
+	PCB describe what they did
+	What happens when a process is blocked
+	context switches
+threads
+	threads execution unit
+	What is shared between threads and processes
+	Main ways that they are impleneted
+	Kernel and User level threads
+	Hybrid methods JVM
+Chapter 5
+	50% of exam
+	concurrency and how we manage it
+	multiple algorithms and how they failed
+		mutual exclusion, bounded waiting, etc...
+	Bounded waiting can be confused with progress
+	Deadlock is when a process isnt allowed to go and 2 others are waiting
+	Looked at software solutions
+		while loops (busy wait)
+	Test and Set hardware instruction
+	Can use to make a semaphore
+	Code that I will write is high level semaphore code
+	Deadlock
+		4 conditions
+		deadlock prevention, denied one of the consditions
+		detect and recover
+		
+Chapter 6
+	20% of exam
+	Algorithims for handling scheduling
+	multi level queue multi level feedback queue
+	
+Conceptual
+
+Chapter 1
+	F
+	T
+Chapter 2
+	Stores PCB	No, single structures sufficis. only one task at a time
+	Operating system manages shared memory transparency
+Chapter 3
+	Process	Addr Space, Kernel Made
+		Thread	Execution context, kernel/lib
+		Thread switching is faster
+	Single
+		.75 * 20ms + .25 * (20 + 60ms)
+		15ms + 20ms = 35ms
+		35ms => 28.5req/sec
+	Multi
+		20ms (Steady stream, overlap latency)
+		20ms => 50req/sec
+Chapter 5
+	
+3/14 - Chapter 7
+--------------------------------------------------------------
+
+Memory
+	Address Binding
+		Where to find anobject
+		When is address determined
+
+		Symbolic ---> Relocateable Address ---> Absolute Adress
+		  [x]		[start + 24]		  [0xFFF06423c77]	
+
+		(Most addressing is 48 bits because we dont need 64 bits right now)
+
+Swapping / Paging
+	Swapping moving entire prorgram from memory to disk
+	Paging is only portions moved from memory to disk
+
+Dynamically Linked Libraries (.DLLs) / Shared Libs (.SO)
+	Share code 
+
+	gcc -lm
+	--------------------	-------------------	------------------
+	|#include <math.h> |	|#include <math.h>|	|		 |
+	|		   |	|main()		  |	|  sym = pow()	 |
+	|  sym = pow()	   |	|  action(...)	  |	|  STUB Function |
+	|------------------|	|------------------	------------------
+	|Math LIB	   |	|Math LIB	  |		|---->>>	-------------
+	|		   |	|		  |				|Math Lib   |
+	|  pow()	   |	|  action()	  |				|  Pow()    |
+	--------------------	-------------------				|  Action() |
+	Static Lib								-------------
+										(Needs to be Retentrant for Concurrency)
+
+Memory Organization
+	 __________________________________________________________________________________
+	| Single Tasking | Multi-Programming		                                   |
+	|__________________________________________________________________________________|
+			 | Real Memory            | Virutal Memory	                   |
+			 |_________________________________________________________________|
+			 | Fixed     | Var        | Paged | Segmented | Combined	   |
+			 | Partition | Partition  |	  |           | Paging/Segmentation|
+			 |_________________________________________________________________|
+
+	Real and physical memory are interchangeable
+	As well as Virtual and Logical
+
+	Real = Physical
+	Virtual = Logical
+
+Assumptions
+	1. Limited Pysical Memory (Always have a limted amount of physical memory)
+	2. Instructions / Data in Memory
+	3. Process must be Contiguous in Memory --Relax--> Paging
+	4. Entire process must be in memory to run --Relax--> Virtual Memory
+
+	Logical				Physical Memory
+	
+	0				n
+	  Program A	--Map-->	  Program A
+	K-1				n+k
+
+
+3/16
+_______________________________________________________________
+
+Single tasking system
+	single process in memory at a time
+	has a fence that protects memory
+	rest of the memory is the OS
+
+Multi tasking systems	
+   Fixed partitions
+	Idea : Memory is divided into fixed number of fixed-size partitions
+	One process per partition
+	Relocation register is where the program starts in memory
+
+	(DIAGRAM)
+	
+	K = 1024 in the system
+	180k x 1024 + 24 = physical address of X
+	
+	Issue : scheduling
+	Where to place the processes?
+	Has to wait on another process to get a partition in memory
+
+	Issue : internal fragmentation
+	Memory that is wasted inside a partition
+	Not all memory in partition will be used due to program size
+
+   Variable Partitions
+	Idea : Memory divided into variable number of variable sized partitions
+	One process per partition
+
+	(DIAGRAM)
+
+	Has a Base and Limit register
+	Base is the same as relocation register (Start of the program in memory)
+	Limit is the size of the program (Determines the size of the partition)
+
+	No internal fragmentation because all partitions match the size of the program
+	
+	Checks the logical address is less than the limit size
+	This determines if it is in bounds
+	Then combines logical with the base address to get the physical address
+	
+	Issue : external fragmentation
+	Memory was partitioned in spots that were used and spots that were free
+	Ends up looking like a fixed partition
+	Have a lot of holes that are not big enough to accomadate a program
+
+	To solve external fragmentation : Compaction (Defragment)
+	Combines all the free memory
+
+Dynamic Storage Allocation Problem
+	1. First-Fit
+		Which ever free partition can accomadate program it will go there
+		Run time (n/2)
+
+	2. Best-Fit
+		Goes in the partition that best fits program
+		Run time (n)
+		Less likely to create external fragmentation
+
+	3. Worst-Fit
+		Goes into big memory in the hope that the memory freed from partition will be usable
+		Not used
+
+3/18
+-------------------------------------------------------------------------------
+
+Paging
+	Idea : Process memory no longer contiguous (Splitting it up)
+	Page size is typically 4k
+	Divides physical memory into fixed-sized blocks called chunks
+	Divide logical memory into blocks of same size called pages
+	Keep track of all free frames
+	
+	_________			_________
+	|0	| > Page		|page 2	| > Frame
+	|_______|			|_______|
+	|1	|			|page 1	|
+	|_______| |page|=|frame|	|_______|
+	|2	|			|	|
+	|_______|			|_______|
+	 Prog A				|	|
+					|_______|
+					 Memory
+
+	Diagram 7.11
+
+	Page is the relocation register
+	There is a page table for every process
+	
+	(DIAGRAM)
+
+3/21
+_______________________________________________________
+
+Paging Implemention
+	(DIAGRAM)
+	2x memory accesses to access instead of one
+	Big hit
+	address this with associative memory
+
+Associative Memory
+	Translation lookaside buffer (TLB)
+	Content addressable memory
+	Built out of SRAM
+	Pattern-Matching (Parallel) special circuitry
+	Fast
+	Expensive
+	Negative is that it is really small, cant fit entire page table (32 entries)
+
+Both are used together
+	If not in TLB then it goes to paging
+	Pg 347 fig 7.14
+	
+
+Principle of Locality
+	Spatial
+	Temporal
+	Hit ratio > 90%
+	
+	d = 80ns (M access)
+	t = 10ns (TLB access)
+	o< = .98 (Hit ratio)
+
+	T(Effective Access Time) = (o<)(t+d) + (1-o<)(t+d+d)
+				 = (.98)(10+80) + (.02)(10+80+80) = 91.6ns
+
+3/23 - Chapter 7
+______________________________________________________________________________
+
+Page sharing
+	Same program maps to same pages
+
+Multi-Level Paging
+	(DIAGRAM)
+	Purpose : Reduce Ram footprint of page table	
+	Idea : Hierarchy
+	Negative : Longer computation time
+	
+	Can be fixed with associative memory : DIR | P is the key
+	
+Segmentation
+	Idea : Provide "logical" view of Memory to the user
+	Similar to page table
+	Process data is split up in differnt parts of memory
+	Has a limit and base table to map to the components of the process
+	| S | P | D |
+	
+End Chapter 7
+Start Chapter 8
+
+Virtual Memory
+	Idea : Do not require process to be in memory
+	Leave parts of program out of ram becuase its not being used
+	Logical memory >> Physical Memory
+	
+
+3/25 - Chapter 8
+_______________________________________________________________________________
+
+Page Fault
+	Definition : Memory reference to a page that is not in memory
+	Demand Paging : Only bring the page in when necessary
+	
+
+3/28
+________________________________________________________________________________
+
+Page fault
+	Combines all we have learned
+	Interrupts
+	DMA + I/o
+	Processes that are running
+	State(Running, Blocked, Ready)
+	Semaphore(File device request)
+	CPU scheduling(CPU Burst - I/O)
+	Context Switching
+	
+Page replacement
+	Idea : Process requires a page and no free frames are available
+	       Also known as choosing a victim
+	Goal : Find a page that is in memory but not in use
+	Performance Metric : Minimize number of faults
+	Page Reference String : 
+		                Only consider the page references
+		                Compress consecutive references to the same page
+		Local page replacement (Only replace my own pages)
+		Pure demand paging
+	
+	1. First-in First-out (FIFO)
+	   Idea : Replace oldest page in memory
+	
+	2. Optimal 
+	   Idea : Replace the page that will not be used for the longest time
+
+	3. Least recently used (LRU)
+	   Idea : Replace the page that has not been used for the longest time
+
+	 
+3/30
+________________________________________________________________________________
+
+FIFO
+	Positive : Fair
+	Negative : Inefficient (Belady's Anomaly)
+
+	More meory =/> Fewer faults
+	Memory frame -> {P} Pass in memory
+	Memory + | Frame -> {P`} pages in memory
+	If {P} <= {P} => No anomoly
+		subset
+	(Diagram)	
+
+	LRU meets criteria
+
+Optimal
+	Positive : Optimal
+	Negative : Impossible to implement
+
+	Use : Comparison
+	      Heuristic
+
+LRU
+	Approximation to Optimal
+
+	Postiive : No anomolies
+	Negative : Time-Consuming
+
+LRU Implementation
+	Clock : Track the time of last reference
+		"Logical" Clock or "Real" Clock
+
+		Reference page -> Update clock value for that page	
+		Victim = "Oldest" Page
+
+	Stack : Reference page -> Move to top-of-stack (TOS)
+		Victim = "Tail" of queue (Bottom of stack)
+
+		lot of pointer manipulation
+		(Diagram)
+
+	MMU :   Reference to page k -> Set Row k / Clear Column k
+	        Victim = Rows with smallest value
+
+	        Very fast, done in parallel
+		Done with hardware
+		Negative is that it takes up space in mmu		
+
+		(Diagram)
+
+Approximations to LRU
+	Reference Bit
+		Reference bit init = 0
+		Reference Page -> Set Reference bit = 1
+
+		Victim = Page with reference bit = 0
+
+		Problem : Does one exist?
+			  No information regarding order of reference
+
+	History Bits
+		Additional Reference Bits
+		
+		Reference page -> Set Reference bit = 1
+		Aging interval (20ms):
+			Shift right on the history bits
+			Shift ref bit into high order history bit
+			Clear ref bits
+
+		Victim = page with the smallest value of history bits
+
+		Ref	History
+		1	11111111
+		0	00000000
+		1	00000001
+		0	10000000
+		1	11000000
+		1	01010101
+
+4/1
+___________________________________________________________________________________
+
+Continued
+	Second Chance("clock")
+		Virtually order pages into 1-bit circular Q
+
+		Reference Bit init = 0
+		Reference Page -> Set Ref bit = 1
+		Victim : If ref bit clock hand points to = 0 -> Replace page, Advance clock
+		         If ref bit clockhand = 1 -> Clear ref bit = 0 
+						     Point to next page
+		Diagram
+
+		If reference bit is not zero then it is cleared and skipped
+		If it is zero then it is used
+		
+		Not pure LRU
+		Pages that keep getting referenced will not have a ref bit of 0
+		Clock continues arond
+		*Clockhand only moves on replacement
+
+	Enhanced Second Chance(Pages Classes)
+		Reference Page -> Set ref bit = 1
+		Write(Modify) Page -> Set mod bit = 1
+
+		Victim = Page from "Lowest Class"
+		
+		Ref	Mod
+		---	---
+		0	0
+		0	1
+		1	0
+		1	1
+
+		Work by using an aging interval
+		Clear ref bits
+		
+4/4
+____________________________________________________________________________________
+
+Unix Page Replacement
+	1. Global Page Recoery
+		Variation on the 'clock' algorithm
+			Scans the frames circularly
+		Triggered by low free memory
+		If RefBit = 0 -> Move page to free list
+	
+	2. Page Buffering
+		Maintain pool of free frames (5-10% of memory)
+		Victim to tail of free list
+		If Rereserved before Re-allocated -> Moved back to active memory
+
+		Dirty list will be written to disk on system down time
+		Same as add it to the free list
+		
+		Can also speculate future pages
+		If wrong they can just be overwritten
+		
+Frame Allocation 
+	Global	>
+	Dynamic	> Driven by demand
+	
+Thrashing - Over high paging activity
+	Process doesnt have enough frames -> fault rate rises
+	Fault rate rises -> CPU utilization drops
+	System detects low cpu activity -> Increases degree of multiprogramming (Brings another process in memory)
+	Increasing multiproggramming -> Frewer Frames/Process (Loops to first point ^)
+	
+	Bad feedback loop
+
+	CPU rises with more processes	
+	Until a certain degree and things get ugly
+	CPU utilization goes down
+	This is the onset of thrashing
+	
+	1. Why does paging/virutal memory work?
+		Locality (Dont need whole process to run)
+	2. Why does thrashing occur?
+		E(Locality of Pi) > Memory
+		i
+		Brought so many jobs into the system that exceeds supply
+
+		
+4/6
+_________________________________________________________________________________________
+
+Working set
+	fault rate x % process pages in memory
+	If memory access was random then graph would decrease linear from 1 to 0
+	In reality it follows linear for a little then a steep drop 
+	As a process working set is brought into memory the fault rate drops
+
+Working set model
+	ws : working set
+	wss : working set size
+	(delta)(^) : working set window (fixed # memory refernces)
+	Sliding window	
+
+	000001111221212565565552223311100000
+
+	 00000		ws = {0,1}
+	|     |		wss = 2
+	t-^   t		wsw = 5
+
+	 12565		ws = {1,2,5,6}
+	|     |		wss = 4
+	t-^   t		wsw = 5
+
+Generic problems
+	1 Overhead in measuring process fault rate
+		solution : Use interfault time
+	
+	2 Optimum size of (delta)?
+		solution : Use feedback
+			establish 'acceptable' fault rate
+		Page fault frequency strategy
+		(Diagram)
+
+	3 Accommating Transients
+		solution : variable interval sampling
+			sample more frequently whenn conditions changing
+	
+End chapter 8
+
+Chapter 9 - Secondary storage (permanent storage) : Files/Directories/Filesystem
+	File : Named, persistent collection of related info
+	Naming : Unique, extensions
+	Structure : Stream of bytes
+	Types : Regular, Directory, Pipes, I/O
+	Access : Mapping logical block # -> Physical disk address
+	Operations : R/W Open/Close
+	Attributes : Descriptive qualities
+	Metadata
+		Inode
+
+4/11
+__________________________________________________________________
+
+File Allocation
+	File is just a stream of bytes
+	(Diagram)
+	
+	1. Contiguous (Array-Like)
+	   Mapping:
+		Take logical address and divide by size of a block
+		Logical Address / sizeof(Block) = Q = 1	(1028/1024)
+		Logical Address % sizeof(Block) = R = 4 (1028%1024)
+
+		-> Block = start address + Q = 15 (14+1)
+		   Displace R into block
+
+		Stores right in a row
+
+		+ Simple 
+		+ Fast
+		
+		- External Fragmentation
+		- Grow
+
+	2. Linked-List
+	   Mapping:
+		Logical Address / (sizeof(block) - sizeof(ptr)) = 1 (1028/1020)
+		Logical Address % (sizeof(block) - sizeof(ptr)) = 8 (1028%1020)
+		
+		-> Block : Traverse Q lines = 16
+		   Displace R into block = 8
+
+4/15 - Chapter 11
+_____________________________________________________________________
+
+Linked-List (continued)
+	FAT : File Allocation Table
+	Data structure holds all of the next pointers
+	One per disk
+
+	Index Node (I-Node)
+	Disk Block containing all of the next pointers
+	One per file
+	Multi-Level Indexing
+
+Free Space management
+	1. Array
+	Bit map
+	bit[i] = 0 -> Block free
+	bit[i] = 1 -> Block used
+
+	2. List
+	A) counting
+		Tracks contiguous blocks
+						#32
+		Free -> Address		15	432	
+			Size		20	26
+			Next	->	32 ->	48 ->
+	
+		This says that at address 15 there are 20 free blocks
+		At address 432 there are 26 free blocks
+	
+	B) grouping
+		Collects pointers to free blocks
+		
+		Free ->	11	117	111
+			432	2044
+			57	66
+			..68 -> 111 ->
+
+		Cross off pointer as it gets used
+		When end is reached change pointer to new list
+		
+
+4/18
+___________________________________________________________________
+
+Disk scheduling
+	Goal : Reduce seek distance because it is proportional to seek time
+
+	Seek : Time to move the R/W head to desired cylinder
+	       Ts (seek time) = startUp + numTracks * headSpeed
+
+	Latency : Time it takes for desired sector to rotate until its under the R/W head
+		  Tl (latency time) = 1 / (2 + diskSpeed)
+
+	Transfer : Time to read
+		   Tt (transfer time) = numBytes / (diskSpeed * (bytes / track))
+
+	numTracks is the only variable we can change and is the target for algorithms to increase speed
+	So reduce the seek distance to reduce the seek time
+
+Disk scheduling algorithms
+	1. FCFS : First-come first-served
+	   Mechanism : No re-ordering of request queue
+
+	2. SSTF : Shortest seek time first
+	   Mechanism : Will sort the request queue to minimize R/W haed movement
+
+	3. Scan : "Elevator"
+	   Mechanism : R/W head sweeps in and out across the disk and services any request in its path (top to bottom)
+	
+	4. C-scan : Circular scan
+	   Mechanism : Unidirectional sweep (only services in one direction, then jumps back)
+
+4/20
+__________________________________________________________________________
+
+Protection : Internal Consistency
+Security : External Threat
+
+Access Right
+	Subject has certain privleges on object
+
+Access Matrix
+	Owner / Group / World
+
+1. Access control list
+	Object (col)
+	Ex. Domain Owner, Group, World
+	Rights rw-, ---, r--
+	Vertical on the matrix
+
+2. Capability List
+	Subject (row)
+	Horizontal on the matrix
+	Distributed Systems
+		Grid
+		Cloud
+	"Ticket" (Form of authentication)
+
+Security
+   Requirements
+	1. Secrecy/Confidentiality
+	2. Integrity
+	3. Availability
+
+   Threats
+	1. Information Intercept
+	2. Modified/Fabricated
+	3. Interruption
+
+
+
+FINAL
+____________________________________________________________
+
+Chapter 7
+	Mapping
+	Logical to physical
+	Where did we put the bytes 
+		Pages
+	Fixed/variable/combination paging
+	Bit type representations
+	How to implement right hand arrow (mapping)
+
+	Equations that deal with the performance
+	Using memory management schemes
+
+Chapter 8
+	Concept of virtual memory
+	Bigger than physical memory
+	If bigger may have to displace
+	Understand relative advantage and diadvantages up to LRU
+	Most systems use faster versions of LRU (second chance etc)
+	Performance impact when dealing with the disk
+
+	File system
+	Implementing a right hand arrow
+	Break up into blocks and figure out where to store and keep track of in physical blocks
+	
+Chapter 9
+	Disk scheduling algorithim
+	Moving the read write head takes time
+	
+More definitive
+Open book, open notes
+Chapter 7-8-9-10-11
+1 t/f from 13-14
+
+Go through the inclass exercises
+
+Chapter 7 Sample
+	1. T(avg) = (.98)(10ns + 100ns) + (.02)(10ns + 100ns + 100ns)
+		  = 112ns
+	
+	2. Internal Frag = Within 
+	   External Frag = Outside, Holes are too small to be useable
+	   Segmentation experiences external fragmentation
+
+Chapter 8 Sample
+	1. a) (2^32) / (2^12) = (2^20) pages (m/M) (Should not get a decimal point)
+	   b) (2^24) / (2^12) = (2^12) (4K) frames
+	   c) (2^20)
+	   d) Equal : (2^24) / 32 = 512 KB/User
+	      Proportional : Pi / EPi * 16M
+
+	2. OPT : 8
+	   LRU : 9
+
+Chapter 9-12 Sample
+	1. (diagram)
+
+	2. Bit Vector : + Fast | + Contiguous
+	   Linked List : (Grouping/Counting) + Growth | + No dynamic storage allocation problem
+
+Chapter 13-14 Sample
+	1. Col : Access control list
+		 Associated with each object
+		 
+	   Row : Capability List
+		 Process (Domain?)
+
+	2. Read locations of write-protect blocks
+	   Modify locations in write-enabled directory
+	   Access modified -> Access protected file
+	   

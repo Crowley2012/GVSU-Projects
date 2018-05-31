@@ -1,0 +1,17 @@
+li $10, 0xF9023224 #large negative
+li $11, 0x78393933 #large positive
+li $12, 0xFFFFFFF2 #small negative
+li $13, 0x43	   #small positive
+
+sltu $14, $10, $11
+sltu $15, $11, $10
+sltu $16, $10, $12
+sltu $17, $12, $10
+sltu $18, $10, $13
+sltu $19, $13, $10
+sltu $20, $11, $12
+sltu $21, $12, $11
+sltu $22, $11, $13
+sltu $23, $13, $10
+sltu $24, $12, $13
+sltu $25, $13, $12

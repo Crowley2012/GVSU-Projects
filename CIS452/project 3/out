@@ -1,0 +1,49 @@
+Script started on Thu 21 Apr 2016 02:44:12 PM EDT
+[?1034h[arch10:~/Documents/git_repos/cis452/project 3]$ ./a.out .
+Blocks: 4	Files: 1	./test3/test4
+Blocks: 8	Files: 1	./test3
+Blocks: 12	Files: 2	./test1
+Blocks: 16	Files: 3	./test5/test6/test8
+Blocks: 20	Files: 4	./test5/test6/test9
+Blocks: 8	Files: 1	./test5/test6/test7
+Blocks: 48	Files: 0	./test5/test6
+Blocks: 52	Files: 0	./test5
+Blocks: 4	Files: 3	./test2
+Blocks: 104	Files: 3	.
+[arch10:~/Documents/git_repos/cis452/project 3]$ ./a.out -h .
+Size: 4.0K	Files: 1	./test3/test4
+Size: 8.0K	Files: 1	./test3
+Size: 12K	Files: 2	./test1
+Size: 16K	Files: 3	./test5/test6/test8
+Size: 20K	Files: 4	./test5/test6/test9
+Size: 8.0K	Files: 1	./test5/test6/test7
+Size: 48K	Files: 0	./test5/test6
+Size: 52K	Files: 0	./test5
+Size: 4.0K	Files: 3	./test2
+Size: 104K	Files: 3	.
+[arch10:~/Documents/git_repos/cis452/project 3]$ ./a.out -s .
+Blocks: 104	Files: 3	.
+Blocks: 52	Files: 0	./test5
+Blocks: 48	Files: 0	./test5/test6
+Blocks: 20	Files: 4	./test5/test6/test9
+Blocks: 16	Files: 3	./test5/test6/test8
+Blocks: 12	Files: 2	./test1
+Blocks: 8	Files: 1	./test5/test6/test7
+Blocks: 8	Files: 1	./test3
+Blocks: 4	Files: 3	./test2
+Blocks: 4	Files: 1	./test3/test4
+[arch10:~/Documents/git_repos/cis452/project 3]$ ./a.out -sh .
+Size: 104K	Files: 3	.
+Size: 52K	Files: 0	./test5
+Size: 48K	Files: 0	./test5/test6
+Size: 20K	Files: 4	./test5/test6/test9
+Size: 16K	Files: 3	./test5/test6/test8
+Size: 12K	Files: 2	./test1
+Size: 8.0K	Files: 1	./test5/test6/test7
+Size: 8.0K	Files: 1	./test3
+Size: 4.0K	Files: 3	./test2
+Size: 4.0K	Files: 1	./test3/test4
+[arch10:~/Documents/git_repos/cis452/project 3]$ exit
+exit
+
+Script done on Thu 21 Apr 2016 02:44:45 PM EDT

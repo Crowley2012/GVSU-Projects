@@ -1,0 +1,15 @@
+# tests the jal and jr instruction
+
+	addi $t4, $t4, 77
+	jal subr
+	
+loop: 	add $t0, $s0, $0
+	bne $v1, 0, exit
+	addi $v1, $v1, 1
+	la $v0, loop
+	jr $v0
+
+subr:   addi $s0, $s0, 4
+     	jr	$ra
+
+exit: 	addi $t0, $t0 3

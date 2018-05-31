@@ -1,0 +1,50 @@
+[arch10:~/Documents/git_repos/cis452/lab 6]$ ./a.out 100
+values: 0	1
+[arch10:~/Documents/git_repos/cis452/lab 6]$ ./a.out 0
+values: 0	1
+[arch10:~/Documents/git_repos/cis452/lab 6]$ ./a.out 1
+values: 0	1
+[arch10:~/Documents/git_repos/cis452/lab 6]$ ./a.out 10
+values: 0	1
+[arch10:~/Documents/git_repos/cis452/lab 6]$ ./a.out 100
+values: 0	1
+[arch10:~/Documents/git_repos/cis452/lab 6]$ ./a.out 1000
+values: 0	1
+[arch10:~/Documents/git_repos/cis452/lab 6]$ ./a.out 10000
+values: 1	0
+[arch10:~/Documents/git_repos/cis452/lab 6]$ ./a.out 100000
+values: 0	1
+[arch10:~/Documents/git_repos/cis452/lab 6]$ ./a.out 1000000
+values: 0	0
+[arch10:~/Documents/git_repos/cis452/lab 6]$ ./a.out 10000000
+values: 0	0
+[arch10:~/Documents/git_repos/cis452/lab 6]$ ./a.out 100000000
+values: 1	1
+[arch10:~/Documents/git_repos/cis452/lab 6]$ ./a.out 1000000000
+values: 1	1
+[arch10:~/Documents/git_repos/cis452/lab 6]$ ./a.out 10000000000
+values: 1	1
+[arch10:~/Documents/git_repos/cis452/lab 6]$ ./a.out 100000000000
+values: 1	1
+[arch10:~/Documents/git_repos/cis452/lab 6]$ ./a.out 10
+values: 0	1
+[arch10:~/Documents/git_repos/cis452/lab 6]$ ./a.out 100
+values: 0	1
+[arch10:~/Documents/git_repos/cis452/lab 6]$ ./a.out 1000
+values: 0	1
+[arch10:~/Documents/git_repos/cis452/lab 6]$ ./a.out 10000
+values: 1	0
+[arch10:~/Documents/git_repos/cis452/lab 6]$ ./a.out 100000
+values: 1	1
+[arch10:~/Documents/git_repos/cis452/lab 6]$ ./a.out 1000000
+values: 0	0
+[arch10:~/Documents/git_repos/cis452/lab 6]$ ./a.out 10000000
+values: 1	1
+[arch10:~/Documents/git_repos/cis452/lab 6]$ ./a.out 100000000
+values: 0	0
+[arch10:~/Documents/git_repos/cis452/lab 6]$ ./a.out 1000000000
+values: 0	0
+[arch10:~/Documents/git_repos/cis452/lab 6]$ ./a.out 10000000000
+values: 0	0
+[arch10:~/Documents/git_repos/cis452/lab 6]$ ./a.out 100000000000
+values: 0	0

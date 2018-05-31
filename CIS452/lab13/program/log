@@ -1,0 +1,17 @@
+Script started on Thu 14 Apr 2016 05:19:07 PM EDT
+[?1034h[arch05:~/Documents/git_repos/cis452/lab13/program]$ gcc -Wall prog.c
+[arch05:~/Documents/git_repos/cis452/lab13/program]$ ./a.out -h prog.c hardLink [A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Kk
+Success
+[arch05:~/Documents/git_repos/cis452/lab13/program]$ ./a.out -s prog.c softLink [A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Kk
+Success
+[arch05:~/Documents/git_repos/cis452/lab13/program]$ ls -l
+total 20
+-rwxr-xr-x 1 crowleys users 8707 Apr 14 17:19 a.out
+-rw-r--r-- 3 crowleys users  738 Apr 14 17:11 hardLink
+-rw-r--r-- 1 crowleys users    0 Apr 14 17:19 log
+-rw-r--r-- 3 crowleys users  738 Apr 14 17:11 prog.c
+lrwxrwxrwx 1 crowleys users    6 Apr 14 17:19 softLink -> prog.c
+[arch05:~/Documents/git_repos/cis452/lab13/program]$ exit
+exit
+
+Script done on Thu 14 Apr 2016 05:19:52 PM EDT

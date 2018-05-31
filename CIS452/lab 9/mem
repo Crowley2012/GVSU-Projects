@@ -1,0 +1,60 @@
+Stack Start 			:	0x00000		:	0x7ffdff3c5000	:	140728885596160
+
+Variable				:	0x1f354		:	0x7ffdff3e4354	:	140728885723988
+
+Environmental Data 		:	0x1f448		: 	0x7ffdff3e4448	:	140728885724232
+
+Stack End 				:	0x21000		: 	0x7ffdff3e6000	:	140728885731328
+
+linux-vdso.so.1  		:				:	0x7ffde91fb000	:	140728514621440
+libc.so.6  				:				:	0x7f761d8bf000	:	140145278578688
+ld-linux-x86-64.so.2 	:				:	0x7f761dca8000	:	140145282678784
+
+
+Initialized Data 		: 	0x601050	:	0x7ffdff9c6050	:	140728891891792
+
+
+Uninitialized Data 		: 	0x601060	:	0x7ffdff9c6060	:	140728891891808
+
+
+HEAP START				:	0x02127000	:	7ffe014ec000	:	140728920358912
+HEAP END				:	0x02148000	:	7ffe0150d000	:	140728920494080
+
+Text						00400000-00401000
+
+
+
+
+Heap Variable Start  	:	0x2127010	:	0x7ffe014ec010	:	140728920358928
+Heap Variable End  		:	0x2127203	:	0x7ffe014ec203	:	140728920359427
+Heap Start (END DATA)	:	0x2148000	:	0x7ffe0150d000	:	140728920494080
+
+ _______________________________________
+|										|
+|	0x7ffdff3c5000 - Stack Upper		|
+ _______________________________________	|
+|										|	|	Stack grows down
+|	0x7ffdff3e4448 - Environmental Data	|	|
+ _______________________________________    \/
+|										|
+|	0x7ffdff3e6000 - Stack Lower		|
+ _______________________________________
+|										|   |
+|	0x7ffde91fb000						|	|	Shared libraries grows down
+|	0x7f761d8bf000 - Shared C Libraries	|	\/
+|	0x7f761dca8000						|	
+ _______________________________________	/\
+|										|	|
+|	0x7ffe014ec000 - Heap Upper			|	|	Heap grows up
+|	0x7ffe0150d000 - Heap Lower			|	|
+ _______________________________________	
+|										|
+|	0x7ffdff9c6050 - Intialiazed Data	|
+ _______________________________________
+|										|
+|	0x7ffdff9c6060 - Uninitialized Data	|
+ _______________________________________
+|										|
+|	0x7ffdff7c5000 - Text Upper			|
+|	0x7ffdff7c6000 - Text Lower			|
+ _______________________________________

@@ -1,0 +1,8 @@
+jal TARGET
+addi $3, $3, 2
+j END
+
+TARGET:
+	addi $4,$4, 5
+	jr $31
+END:

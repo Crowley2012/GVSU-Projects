@@ -1,0 +1,21 @@
+#> InputSetLoader: gvFormat.InputSetLoaderSimpleGVFormat
+
+# This file tests the carry generate network stage of the Kogge Stone 
+# adder. It calculates the carry out for a bit position based on 
+# a previous carry in and the current Generate and Propagate state.
+
+BEGIN CarryGenerateNodePartial_No_CarryIn
+	INPUTS
+     		G [0, 1]
+	 	P [0, 1]
+		In [0]
+	OUTPUTS
+		Out [0, 0, 1, 1]
+
+BEGIN CarryGenerateNodePartial_CarryIn
+	INPUTS
+     		G [0, 1]
+	 	P [0, 1]
+		In [1]
+	OUTPUTS
+		Out [0, 1, 1, 1]

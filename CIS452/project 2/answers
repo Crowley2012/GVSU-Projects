@@ -1,0 +1,24 @@
+[arch10:~/Documents/git_repos/cis452/project 2]$ gcc -Wall project2.c 
+[arch10:~/Documents/git_repos/cis452/project 2]$ ./a.out 
+5 + 6
+PID : 16811	 PPID : 16810	5	0	+
+11
+[arch10:~/Documents/git_repos/cis452/project 2]$ ./a.out 
+10 - 7
+PID : 16813	 PPID : 16812	10	0	-
+3
+[arch10:~/Documents/git_repos/cis452/project 2]$ ./a.out 
+5 + 6 + 7
+PID : 16822	 PPID : 16821	5	0	+
+PID : 16824	 PPID : 16822	6	7	+
+13
+PID : 16825	 PPID : 16821	6	0	+
+13
+[arch10:~/Documents/git_repos/cis452/project 2]$ ./a.out 
+15 + 30 + 45
+PID : 16888	 PPID : 16887	15	0	+
+PID : 16889	 PPID : 16888	30	45	+
+75
+PID : 16891	 PPID : 16887	30	0	+
+75
+

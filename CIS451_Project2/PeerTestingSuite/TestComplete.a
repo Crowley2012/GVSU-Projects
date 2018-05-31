@@ -1,0 +1,51 @@
+#Complete Instruction Set Test
+#the commented sections will not work with Phase1 but should work with Phase2
+	.data
+testVal1:	4567
+testVal2:	3453
+
+	.text
+	lw $2, testVal1
+	lw $3, testVal2
+	addi $4, $16, 17
+	sw   $2, testVal2
+	la   $5, testVal2 	
+	sw   $2, 4($5)
+	lui  $6, 5
+	addi  $7, $7, 5
+	
+STUFF:	
+	addi $8, $16, 3
+	addi $9, $16, -100
+	add  $10, $16, $17
+	addiu  $11, $5, -100
+	addiu  $12, $5, 50
+	and  $13, $16, $8	
+	andi $14, $18, 50
+	addi $7, $7, -1
+	beq  $7, $0, OVER
+	j STUFF
+	
+OVER:	
+	or  $16, $3, $16
+	bne $0, 0, BNE
+	addi $0, $0, 4
+	addi $4, $0, 4
+	bne $17, 5, BNE
+	addi $6, $0, 4
+	addi $7, $0, 4
+	
+BNE:
+	nor $18, $5, $3
+	or  $19, $5, $3
+	
+	ori $20, $19, 345
+	slt $21, $20, $19
+	lui $22, 0xFFFF
+	sltu $23, $5, $22
+	slti $24, $5, -10
+	sltiu $25, $5, -100
+	sub $25, $24, $23
+	subu $26, $25, $22
+	xor  $27, $27, $22
+
