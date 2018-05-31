@@ -1,0 +1,26 @@
+#BlueJ class context
+comment0.params=
+comment0.target=void\ setUp()
+comment0.text=\r\n\ Sets\ up\ the\ test\ fixture.\r\n\r\n\ Called\ before\ every\ test\ case\ method.\r\n
+comment1.params=
+comment1.target=void\ testTicketConstructor()
+comment1.text=\r\n\ Ticket\ Constructor\r\n
+comment2.params=
+comment2.target=void\ testReadFile()
+comment2.text=\r\n\ Read\ Datafile\r\n
+comment3.params=
+comment3.target=void\ testBigWinner()
+comment3.text=\r\n\ Big\ Winner\r\n
+comment4.params=
+comment4.target=void\ testReport()
+comment4.text=\r\n\ General\ Report\r\n
+comment5.params=
+comment5.target=void\ testStateReport()
+comment5.text=\r\n\ State\ Report\r\n
+comment6.params=
+comment6.target=void\ testMajorWinners()
+comment6.text=\r\n\ Major\ Winners\r\n
+comment7.params=
+comment7.target=void\ testOldest()
+comment7.text=\r\n\ Oldest\ Player\r\n
+numComments=8

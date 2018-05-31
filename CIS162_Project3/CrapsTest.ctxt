@@ -1,0 +1,26 @@
+#BlueJ class context
+comment0.params=
+comment0.target=CrapsTest()
+comment1.params=
+comment1.target=void\ setUp()
+comment1.text=\r\n\ Sets\ up\ the\ test\ fixture.\r\n\r\n\ Called\ before\ every\ test\ case\ method.\r\n
+comment10.params=
+comment10.target=void\ testManyTurns()
+comment2.params=
+comment2.target=int\ getTotal()
+comment3.params=
+comment3.target=void\ tearDown()
+comment3.text=\r\n\ Tears\ down\ the\ test\ fixture.\r\n\r\n\ Called\ after\ every\ test\ case\ method.\r\n
+comment4.params=
+comment4.target=void\ testConstructor()
+comment5.params=
+comment5.target=void\ testComeOut()
+comment6.params=
+comment6.target=void\ testRoll()
+comment7.params=
+comment7.target=void\ testTurn()
+comment8.params=
+comment8.target=void\ setCredits()
+comment9.params=
+comment9.target=void\ testNoCredits()
+numComments=11
